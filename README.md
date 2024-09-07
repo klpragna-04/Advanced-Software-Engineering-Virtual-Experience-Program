@@ -4,7 +4,7 @@
 
 # Advanced Software Engineering Virtual Experience Program
 
-This repository showcases the practical tasks completed by **Lakshmi Pragna** during the **Advanced Software Engineering Virtual Experience Program** in July 2023. The program focused on developing key technical skills through hands-on projects in:
+This repository showcases the practical tasks completed during the **Advanced Software Engineering Virtual Experience Program** in July 2023. The program focused on developing key technical skills through hands-on projects in:
 
 - **Advanced Data Structures**
 - **Software Architecture**
