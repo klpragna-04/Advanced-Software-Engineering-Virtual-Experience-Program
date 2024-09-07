@@ -1,0 +1,51 @@
+import sqlite3
+import csv
+
+conn = sqlite3.connect('shipment_database.db')
+cursor = conn.cursor()
+
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS ShippingData (
+        id INTEGER PRIMARY KEY,
+        shipment_identifier TEXT,
+        origin_warehouse TEXT,
+        destination_store TEXT,
+        driver_identifier TEXT,
+        product TEXT,
+        on_time INTEGER,
+        product_quantity INTEGER
+    )
+''')
+
+with open('shipping_data_0.csv', 'r') as file:
+    csv_reader = csv.reader(file)
+    next(csv_reader)
+    for row in csv_reader:
+        origin_warehouse, destination_store, driver_identifier, product, on_time, product_quantity = row
+        cursor.execute(
+            'INSERT INTO ShippingData (origin_warehouse, destination_store, driver_identifier, product, on_time, product_quantity) VALUES (?, ?, ?, ?, ?, ?)',
+            (origin_warehouse, destination_store, driver_identifier, product, on_time, product_quantity)
+        )
+
+with open('shipping_data_1.csv', 'r') as file:
+    csv_reader = csv.reader(file)
+    next(csv_reader)  
+    for row in csv_reader:
+        shipment_identifier, product, on_time = row
+        cursor.execute(
+            'INSERT INTO ShippingData (shipment_identifier, product, on_time) VALUES (?, ?, ?)',
+            (shipment_identifier, product, on_time)
+        )
+
+with open('shipping_data_2.csv', 'r') as file:
+    csv_reader = csv.reader(file)
+    next(csv_reader)  
+    for row in csv_reader:
+        shipment_identifier, origin_warehouse, destination_store, driver_identifier = row
+        cursor.execute(
+            'INSERT INTO ShippingData (shipment_identifier, origin_warehouse, destination_store, driver_identifier) VALUES (?, ?, ?, ?)',
+            (shipment_identifier, origin_warehouse, destination_store, driver_identifier)
+        )
+
+conn.commit()
+conn.close()
